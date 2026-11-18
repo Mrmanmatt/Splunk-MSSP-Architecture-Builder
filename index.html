@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Splunk Reference Architecture Builder</title>
+<title>Splunk MSSP Architecture Explorer</title>
 <style>
 :root{--bg:#f4f6f9;--card:#fff;--tx:#18212f;--mu:#5a677b;--bd:#d5dbe5;--ac:#0a6e52;--src:#e6edfb;--idx:#dff3e8;--sh:#e8e3f8;--ten:#fff3c4;--ln:#6f7c90;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141c;--card:#18202c;--tx:#e6ebf2;--mu:#9aa7ba;--bd:#2c3748;--ac:#3fcf9f;--src:#1f2e4d;--idx:#1a3d2e;--sh:#2d2750;--ten:#4a4318;--ln:#8795ab;color-scheme:dark}}
@@ -9,7 +9,7 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 [hidden]{display:none!important}
-header{padding:18px 24px 0;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tb{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.tb button,.pre button,.tr button,.inv button{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;white-space:nowrap}.pre{max-width:1400px;margin:10px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sum{color:var(--mu);font-size:13px;margin:0 0 8px}.tr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.tr .cap{flex:1 1 100%;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}.tr button:disabled{opacity:.45;cursor:default}.trace g[data-k]:not(.hl){opacity:.28}.hl .b{stroke:var(--ac);stroke-width:3}
+header{padding:18px 24px 0;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.tb{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.tb button,.pre button,.tr button,.inv button,dialog button{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;white-space:nowrap}.pre{max-width:1400px;margin:10px auto 0;padding:0 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sum{color:var(--mu);font-size:13px;margin:0 0 8px}.tr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.tr .cap{flex:1 1 100%;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px}.tr button:disabled{opacity:.45;cursor:default}.trace g[data-k]:not(.hl){opacity:.28}.hl .b{stroke:var(--ac);stroke-width:3}
 @media(max-width:900px){.pre{padding:0 12px}}
 
 h1{font-size:22px;margin:0 0 4px}header p{margin:0;color:var(--mu);max-width:75ch}
@@ -32,14 +32,22 @@ h2{font-size:16px;margin:0 0 6px}ul{margin:6px 0 0;padding-left:20px}li{margin:5
 @media print{:root,:root[data-theme="dark"],:root:not([data-theme="light"]){--bg:#fff;--card:#fff;--tx:#18212f;--mu:#5a677b;--bd:#d5dbe5;--ac:#0a6e52;--src:#e6edfb;--idx:#dff3e8;--sh:#e8e3f8;--ten:#fff3c4;--ln:#6f7c90}
 body{padding:10mm;font-size:12px}header{display:block;padding:0}header p,.tb,.pre,form,.tr{display:none!important}.wrap{display:block;padding:0;margin:0;max-width:none}
 .card{border:0;padding:0}.card+.card{margin-top:8px}.sc{overflow:visible}.sc svg{min-width:0;width:100%}
-#notes{break-before:page}#notes ul{columns:2;column-gap:24px}#notes li{break-inside:avoid}.inv table{break-inside:avoid}}
+dialog{display:none!important}.tabs,.cc{display:none!important}#p-inv[hidden],#p-sum[hidden]{display:block!important}#p-cmp{display:none!important}#p-notes{break-before:page}#p-notes ul,#p-sum ul{columns:2;column-gap:24px}li{break-inside:avoid}.inv table{break-inside:avoid}}
+.st{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ac);margin:4px 0 6px}.hp{color:var(--mu);font-size:12.5px;margin:0 0 4px}details summary{cursor:pointer;font-weight:600;margin-bottom:8px}.why{color:var(--mu);font-size:13px;margin-top:4px}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);max-width:520px;padding:12px 24px}dialog::backdrop{background:rgba(0,0,0,.6)}dialog h2{margin-top:8px}
+.exp{position:relative}.exp summary{list-style:none;cursor:pointer;border:1px solid var(--bd);background:var(--card);border-radius:8px;padding:6px 12px}.exp summary::-webkit-details-marker{display:none}.menu{position:absolute;right:0;top:110%;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:4px;z-index:30;min-width:210px}.menu button{text-align:left}
+.tr .pri{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--bd);margin-bottom:12px;flex-wrap:wrap}.tabs button{border:0;border-bottom:3px solid transparent;background:none;color:var(--mu);padding:8px 12px;cursor:pointer;font:inherit}.tabs button.on{color:var(--tx);border-color:var(--ac);font-weight:600}
+#dcard{position:relative}.cc{position:absolute;z-index:20;width:360px;max-width:calc(100% - 16px);background:var(--card);border:1px solid var(--ac);border-radius:10px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.35);font-size:13.5px}.cc h3{margin:0 20px 4px 0;font-size:15px}.cc p{margin:6px 0}.cc .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--tx);font-size:20px;cursor:pointer;padding:0 4px}.cc a{color:var(--ac)}
+svg g[data-k]{cursor:pointer}svg g[data-k]:hover .b{stroke-width:2.4}svg g[data-k]:focus-visible{outline:none}svg g[data-k]:focus-visible .b{stroke:var(--ac);stroke-width:3}
 </style></head><body>
-<header><div><h1>Splunk MSSP reference architecture builder</h1>
-<p>Choose the architecture pattern and how the SOC sees alerts, then size each Splunk instance. Topology codes follow Splunk’s Validated Architecture naming. This is a starting-point design: review it against Splunk’s guidance before sharing.</p></div><div class="tb"><button id="th" type="button"></button><button id="sv" type="button">Download SVG</button><button id="pr" type="button">Print / PDF</button></div></header><div class="pre" id="pre"></div>
+<header><div><h1>Splunk MSSP Architecture Explorer</h1>
+<p>Explore how a managed security service could be built on Splunk. Answer four questions, then step through an alert, check the trust boundaries or compare two approaches. For discussion only: a Splunk solutions architect should be involved in any production design.</p></div><div class="tb"><button id="th" type="button" aria-label="Switch between dark and light mode"></button><details class="exp"><summary>Export ▾</summary><div class="menu"><button type="button" id="pr">Print / PDF</button><button type="button" id="sv">Download SVG</button><button type="button" id="cv">Download footprint CSV</button></div></details></div></header><div class="pre" id="pre"></div>
 <div class="wrap"><form id="f" onsubmit="return false"></form>
-<div><div class="card"><div class="tr" id="tr"></div><div class="sc" id="out"></div></div><div class="card" id="notes"></div></div></div>
+<div><div class="card" id="dcard"><div class="tr" id="tr"></div><div class="sc" id="out"></div><div id="bnd"></div><div id="cc" class="cc" tabindex="-1" role="dialog" aria-label="Component details" hidden></div></div><div class="card"><div class="tabs" id="tabs"></div><div id="p-notes"></div><div id="p-inv" hidden></div><div id="p-cmp" hidden></div><div id="p-sum" hidden></div></div></div></div>
+<dialog id="warn"><h2>For discussion and visualisation only</h2><p>This tool helps you visualise and discuss possible Splunk architectures. It does not produce a production-ready design. Topologies, counts and notes are illustrative and have not had formal architect review.</p><p><b>A full scoping of requirements and a Splunk solutions architect should be involved in any production design.</b></p><p><button type="button" id="ok">I understand</button></p></dialog>
 <script>
-const S={pattern:'multi',view:'moth',n:5,d:1,mwhere:'onprem',ingest:'small',avail:'ha',search:'shc',es:true,virt:false,hf:false,edC:'ess',edD:'ess',soar:false,csoar:false,csize:'single'};
+const S={pattern:'multi',view:'moth',mwhere:'onprem',avail:'ha',search:'shc',virt:false,hf:false,edC:'ess',edD:'ess',soar:false,csoar:false,csize:'single'};
 function load(){try{new URLSearchParams(location.hash.slice(1)).forEach((v,k)=>{if(k in S)S[k]=typeof S[k]==='boolean'?v==='1':typeof S[k]==='number'?+v:v})}catch(e){}}
 function save(){try{history.replaceState(null,'','#'+new URLSearchParams(Object.entries(S).map(([k,v])=>[k,typeof v==='boolean'?(v?1:0):v])))}catch(e){}}
 load();
@@ -50,17 +58,19 @@ const G=[
 
 ['edC','3. MSP platform: Enterprise Security edition',[['ess','ES Essentials'],['prem','ES Premier (includes Splunk SOAR)']]],['soar','Standalone Splunk SOAR for the SOC','c'],['edD','Dedicated client stacks: Enterprise Security edition',[['ess','ES Essentials'],['prem','ES Premier (includes Splunk SOAR)']]],['csoar','Standalone Splunk SOAR in each dedicated stack','c'],['mwhere','4. MSP shared platform: hosting',WH],
 
-['avail','Availability',[['none','No HA: temporary gaps acceptable'],['ha','HA: results must stay complete (indexer cluster)'],['dr','Automatic recovery from a site outage (multi-site)']]],
+['avail','Availability',[['none','Single copy of data: an indexer failure can lose data'],['ha','Multiple copies, so searches stay complete if an indexer fails'],['dr','Copies in more than one site, so a site outage is survivable']]],
 ['search','Search tier',[['one','Single search head'],['shc','Search head cluster'],['stretch','Stretched SHC across sites']]],
 ['virt','MSP platform on virtualised hosts','c'],['hf','Heavy forwarder tier in front of the shared platform','c'],
 
 ['csize','Dedicated stack size',[['single','Single instance'],['clustered','Clustered']]]];
 const fm=document.getElementById('f');
-fm.innerHTML=G.map(([k,l,o])=>{let b;
- if(o==='n')b=`<input type="number" name="${k}" min="1" max="30" value="${S[k]}">`;
- else if(o==='c')b=`<label><input type="checkbox" name="${k}"${S[k]?' checked':''}> Yes</label>`;
+const ST={pattern:'Step 1 · How will you serve customers?',view:'Step 2 · How will your SOC work alerts?',mwhere:'Step 3 · Where will Splunk run?',avail:'Step 4 · How resilient must it be?'},ADV=['search','virt','hf','edC','soar','edD','csoar','csize'];
+const HP={pattern:'Dedicated: a separate Splunk stack per client. Shared: one platform for everyone. Hybrid: both.',view:'Mothership pulls alerts from each stack into one SOC view. An ITSM tool receives them as tickets.',mwhere:'Where the MSP’s own Splunk platform runs.',avail:'Replication factor is how many copies of data exist. Search factor is how many of those copies are searchable.',search:'A search head cluster keeps searching available if one search head fails.',virt:'Virtual hosts need reserved CPU and memory.',hf:'Heavy forwarders route, filter and secure incoming data before it reaches the platform.',edC:'Premier includes Splunk SOAR. Essentials does not.',soar:'Splunk SOAR automates response steps. Only Splunk SOAR is covered.',edD:'Edition used inside each dedicated client stack.',csoar:'Adds Splunk SOAR beside ES in each dedicated stack.',csize:'A single instance suits a smaller client. Clustered adds resilience.'};
+const fld=([k,l,o])=>{let b;
+ if(o==='c')b=`<label><input type="checkbox" name="${k}"${S[k]?' checked':''}> Yes</label>`;
  else b=o.map(([v,t])=>`<label><input type="radio" name="${k}" value="${v}"${S[k]===v?' checked':''}> ${t}</label>`).join('');
- return `<fieldset id="fs-${k}"><legend>${l}</legend>${b}</fieldset>`}).join('');
+ return `<fieldset id="fs-${k}">${ST[k]?`<h3 class="st">${ST[k]}</h3>`:''}<legend>${l.replace(/^\d\.\s*/,'')}</legend>${HP[k]?`<div class="hp">${HP[k]}</div>`:''}${b}</fieldset>`};
+fm.innerHTML=G.filter(g=>!ADV.includes(g[0])).map(fld).join('')+`<details id="adv"><summary>Advanced options</summary>${G.filter(g=>ADV.includes(g[0])).map(fld).join('')}</details>`;
 ['change','input'].forEach(e=>fm.addEventListener(e,ev=>{const t=ev.target;
  if(t.type==='checkbox')S[t.name]=t.checked;else if(t.type==='number')S[t.name]=Math.max(1,Math.min(30,+t.value||1));else S[t.name]=t.value;go()}));
 
@@ -71,8 +81,7 @@ function code(z){if(z.mwhere==='saas')return 'Splunk Cloud';
  if(i==='M'&&s===1)s=2;if(s===1&&z.pattern==='hsearch')s=2;
  return i+(s+(z.es?10:0))}
 
-function go(){const z={...S};z.n=Math.max(2,z.n);
- z.d=z.pattern==='ded'?z.n:z.pattern==='multi'?0:Math.min(Math.max(1,z.d),z.n-1);z.sN=z.n-z.d;
+function go(){const z={...S};z.es=true;z.n=5;z.d=z.pattern==='ded'?5:z.pattern==='multi'?0:1;z.sN=z.n-z.d;
  const hasS=z.pattern!=='ded',hasD=z.pattern!=='multi',sa=z.mwhere==='saas',hy=z.pattern[0]==='h';
  z.sC=hasS?(z.edC==='prem'||z.soar):z.soar;z.sD=hasD&&(z.edD==='prem'||z.csoar);
  const v={d:hy,edC:hasS,soar:!hasS||z.edC==='ess',edD:hasD,csoar:hasD&&z.edD==='ess',hf:hasS,mwhere:hasS,ingest:hasS&&!sa,avail:hasS&&!sa,search:hasS&&!sa,virt:hasS&&!sa,csize:hasD};
@@ -81,14 +90,14 @@ function go(){const z={...S};z.n=Math.max(2,z.n);
  fm.querySelectorAll('input[type=radio]').forEach(r=>r.checked=S[r.name]===r.value);
  fm.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=!!S[c.name]);
  fm.querySelector('input[name=search][value=stretch]').parentElement.hidden=S.avail!=='dr';
- const C=hasS?code(z):null;draw(z,C);CUR={z,C};notes(z,C);STEPS=steps(z,C);trace();save()}
+ const C=hasS?code(z):null;document.getElementById('out').innerHTML=draw(z,C);CUR={z,C};notes(z,C);document.getElementById('p-cmp').innerHTML=cmpHtml(z,C);document.getElementById('cc').hidden=true;STEPS=steps(z,C);trace();tabs();save()}
 
 function draw(z,C){
  const W=980,P=14,E=[],hasS=!!C,hasD=z.pattern!=='multi',hy=z.pattern[0]==='h',H=(z.sC||z.sD)?222:190;
  const box=(x,y,w,h,c,t,s,dash,k)=>E.push((k?`<g data-k="${k}">`:'')+`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" class="b ${c}"${dash?' stroke-dasharray="5 4"':''}/>`+(t?`<text class="t" x="${x+w/2}" y="${y+(s?h/2-2:h/2+5)}">${t}</text>`:'')+(s?`<text class="s" x="${x+w/2}" y="${y+h/2+14}">${s}</text>`:'')+(k?'</g>':''));
  const arrow=(x1,y1,x2,y2)=>E.push(`<line class="ar" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-end="url(#a)"/>`);
  const lab=(x,y,t)=>E.push(`<text class="h" x="${x}" y="${y}">${t}</text>`);
- BD=[];const bd=(n,x,y)=>{BD.push(n);if(BND)E.push(`<circle cx="${x}" cy="${y}" r="11" fill="#d1453b" stroke="#fff" stroke-width="1.5"/><text x="${x}" y="${y+4}" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="12" font-weight="700">${n}</text>`)};
+ BD=[];const mg=(x,y,t)=>E.push(`<g data-k="mgmt"><text class="h" x="${x}" y="${y}">${t}</text></g>`);const bd=(n,x,y)=>{BD.push(n);if(BND)E.push(`<circle cx="${x}" cy="${y}" r="11" fill="#d1453b" stroke="#fff" stroke-width="1.5"/><text x="${x}" y="${y+4}" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="12" font-weight="700">${n}</text>`)};
  const y1=76,y2=y1+54+46,y3=y2+H+(z.hf&&hasS?80:46);
  box((W-200)/2,8,200,40,'src','MSP SOC analyst','',0,'analyst');bd(7,(W-200)/2+190,14);if(!hasS&&z.sC){box(W-P-250,8,250,40,'ten','Splunk SOAR: SOC automation','',0,'soar');bd(5,W-P-10,12);arrow(594,22,W-P-254,22);arrow(W-P-254,34,594,34)}
  const mo=['Mothership App for Splunk','Scheduled pulls per client; ES Mothership rolls up notables'],it=['ITSM tool (e.g. ServiceNow)','Alerts pushed in as tickets; status syncs back'];
@@ -111,10 +120,10 @@ function draw(z,C){
   const sr=[];
   if(sa)sr.push(['ES search heads','Managed by Splunk','sh','es']);
   else if(idx==='S')sr.push(['Search and ES','On the single instance','sh','es']);
-  else if(z.es){sr.push(['ES search heads',dg===4?'SHC ×3, stretched':dg===3?'SHC ×3 + deployer':dg===2?'×2, one per site':'×1, ES only','sh','es']);sr.push(['Analyst search heads','Ad hoc and dashboards','sh'])}
+  else if(z.es){sr.push(['ES search heads',dg===4?'SHC ×3, stretched':dg===3?'SHC ×3 + deployer':dg===2?'×2, one per site':'×1, ES only','sh','es']);sr.push(['Analyst search heads','Ad hoc and dashboards','sh','ash'])}
   else sr.push(['Search heads',dg>=3?'SHC ×3 + deployer':dg===2?'×2, one per site':'×1','sh','es']);
-  if(z.pattern==='hdash')sr.push(['Client dashboards','Read-only, no search','ten']);
-  if(z.pattern==='hsearch')sr.push(['Client search heads','RBAC, own indexes only','ten']);
+  if(z.pattern==='hdash')sr.push(['Client dashboards','Read-only, no search','ten','cdash']);
+  if(z.pattern==='hsearch')sr.push(['Client search heads','RBAC, own indexes only','ten','csh']);
   const bw=(w-24-(sr.length-1)*10)/sr.length;
   sr.forEach((s,j)=>box(x+12+j*(bw+10),y2+34,bw,50,s[2],s[0],s[1],0,s[3]));
   if(hy){const ux=W-P-130,acx=x+12+(sr.length-1)*(bw+10)+bw/2;box(ux,y1,130,54,'src','Client users',z.pattern==='hdash'?'Dashboards only':'RBAC-limited search',0,'users');bd(6,ux+118,y1+12);arrow(ux+65,y1+54,acx,y2+34);lab((ux+65+acx)/2+6,(y1+54+y2+34)/2+4,z.pattern==='hdash'?'dashboards':'search access')}
@@ -122,13 +131,13 @@ function draw(z,C){
   const ix2={S:['Single instance: S1','Index and license on one host'],D:['Indexers ×2+','Non-clustered, no replication'],C:['Indexer cluster ×3+','Replication factor 3, search factor 2'],M:['Multi-site indexer cluster','2+ sites, site-aware replication']};
   box(x+12,iy,w-24,54,'idx',...(sa?['Indexers (managed)','Splunk operates indexing']:ix2[idx]),0,'idx');
   arrow(x+w/2,iy,x+w/2,iy-(z.sC?6:16));
-  lab(x+12,y2+H-12,sa?'Customer side: heavy forwarders, Deployment Server':'Mgmt: '+[idx==='C'||idx==='M'?'Cluster Mgr':'','License Mgr','Deployment Server','Monitoring Console',dg>=3?'SHC Deployer':''].filter(Boolean).join(', '));
+  mg(x+12,y2+H-12,sa?'Customer side: heavy forwarders, Deployment Server':'Mgmt: '+[idx==='C'||idx==='M'?'Cluster Mgr':'','License Mgr','Deployment Server','Monitoring Console',dg>=3?'SHC Deployer':''].filter(Boolean).join(', '));
   const b0=hasD?2:1,it3=[{i:b0},{i:b0+1},{i:b0+2},{more:1}],ew=(sw-(it3.length-1)*12)/it3.length;
   it3.forEach((t,j)=>{const ex=sx+j*(ew+12);envb(ex,ew,t);arrow(ex+ew/2,y3,ex+ew/2,z.hf?y2+H+54:y2+H);if(!j){lab(ex+ew/2+6,y3-18,'logs via forwarders');bd(1,ex+ew/2-24,y3-14)}});if(z.hf){box(sx,y2+H+24,sw,30,'ten','Heavy forwarders: TLS, routing, filtering','',0,'hf');arrow(sx+sw/2,y2+H+24,sx+sw/2,y2+H)}
   up(sx+sw/2)}
  if(BND){E.push(`<line x1="${P}" y1="${y2+H+18}" x2="${W-P}" y2="${y2+H+18}" stroke="#d1453b" stroke-width="2" stroke-dasharray="8 5"/><text class="h" x="${W-P}" y="${y2+H+14}" text-anchor="end">Client network edge</text>`)}
- lab(P,y3+78,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+96,'Splunk MSSP architecture builder v7 · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
- document.getElementById('out').innerHTML=`<svg viewBox="0 0 ${W} ${y3+106}" role="img" aria-label="Splunk MSSP architecture diagram"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0L10 5L0 10z"/></marker></defs>${E.join('')}</svg>`}
+ lab(P,y3+78,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+96,'Splunk MSSP Architecture Explorer v9 · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
+ return `<svg viewBox="0 0 ${W} ${y3+106}" role="img" aria-label="Splunk MSSP architecture diagram"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0L10 5L0 10z"/></marker></defs>${E.join('')}</svg>`}
 
 function notes(z,C){const n=[],sa=z.mwhere==='saas',hasS=!!C,hasD=z.pattern!=='multi';
  const P0={ded:'Dedicated environments: every client has a fully isolated Splunk deployment with its own infrastructure, data and access.',multi:'Multi-client environment: all clients on one shared MSSP-managed platform with segregated data and no direct client access.',hdash:'Hybrid (dashboard access): a shared multi-tenant platform where clients see pre-built dashboards and reports only, alongside dedicated stacks for some clients.',hsearch:'Hybrid (search access): a shared multi-tenant platform where each client gets a dedicated, RBAC-restricted search head limited to their own data, alongside dedicated stacks for some clients.'};
@@ -136,7 +145,7 @@ function notes(z,C){const n=[],sa=z.mwhere==='saas',hasS=!!C,hasD=z.pattern!=='m
   if(z.es&&C[0]!=='S')n.push('Enterprise Security needs its own search head (or cluster) on distributed topologies, which is why ES and analyst search heads are drawn separately.');
   if(z.avail==='dr'&&z.search!=='stretch')n.push('Multi-site indexing without a stretched SHC: keep a search head per site. Users’ searches and dashboards will not stay in sync between sites.');
   if(z.search==='stretch')n.push('A stretched SHC keeps user artifacts in sync across sites but cannot guarantee every artifact is replicated at all times. It only makes sense with multi-site indexing.');
-  if(z.avail==='none')n.push('No HA gives non-clustered indexers (D): an indexer failure loses its unreplicated data and leaves gaps in search results, which is rarely acceptable for security detection.')}
+  n.push('Replication factor is how many copies of the data exist, and search factor is how many of those copies are searchable. Holding copies and searching them straight away are different things, so both are set deliberately (a common starting point is RF 3 and SF 2).');if(z.avail!=='none')n.push('A single server (S1) is not offered for the shared platform, because a multi-client SOC needs resilience and room to grow. Dedicated client stacks can still be a single instance.');if(z.avail==='none')n.push('No HA gives non-clustered indexers (D): an indexer failure loses its unreplicated data and leaves gaps in search results, which is rarely acceptable for security detection.')}
  if(hasS)n.push('Shared platform tenancy: one index set per client, roles limited with srchIndexesAllowed, per-client apps and HEC tokens, and retention set per index. Clients above roughly 100 GB/day belong in their own dedicated stack instead.');
  if(z.pattern==='hdash')n.push('Dashboard-only access: build read-only dashboards or reports per client and keep search capability out of client roles.');
  if(z.pattern==='hsearch')n.push('Per-client search heads add hosts and licences to manage. Restrict each to that client’s indexes with RBAC and size it for that client’s search load.');
@@ -155,13 +164,26 @@ function notes(z,C){const n=[],sa=z.mwhere==='saas',hasS=!!C,hasD=z.pattern!=='m
  n.push('Counts are indicative. Sizing, retention and network zones are not modelled yet.');
  if(hasS&&!sa){const IL={S:'one server does everything',D:'several indexers storing data with no copies',C:'several indexers keeping copies of the data, so one failing loses nothing',M:'indexer clusters across sites, so a whole site can fail'},SL={1:'a single search head',2:'two or more search heads',3:'a search head cluster, so searching survives a failure',4:'a search head cluster stretched across sites'};n.unshift(`In plain terms: ${IL[C[0]]}; searching uses ${SL[(+C.slice(1))%10]}${z.es&&C[0]!=='S'?', with Enterprise Security on its own search heads':''}.`)}
  const sel=G.filter(([k])=>!document.getElementById('fs-'+k).hidden).map(([k,l,o])=>{const v=S[k],t=o==='c'?(v?'Yes':'No'):(o.find(a=>a[0]===v)||['',''])[1];return `${l.replace(/^\d\.\s*/,'')}: <b>${t}</b>`}).join(' · ');
- document.getElementById('notes').innerHTML=`${BND?bdHtml():''}${INV?invHtml(z,C):''}<h2>Design notes</h2><div class="pat">${P0[z.pattern]}</div><p class="sum">${sel}</p><ul>${n.map(t=>`<li>${t}</li>`).join('')}</ul><p class="sum">Sources: <a href="https://help.splunk.com/en/data-management/splunk-validated-architectures/splunk-platform-indexing-and-search">Splunk Validated Architectures</a> · <a href="https://splunkbase.splunk.com/app/4646">Mothership App for Splunk</a> · <a href="https://help.splunk.com/en/splunk-enterprise-security-8/administer/8.1/configuration-and-settings/pair-splunk-enterprise-security-with-splunk-soar">Pair ES with SOAR</a>. These rules and notes are a reference reading of those sources and have not had formal architect review.</p>`}
+ document.getElementById('p-notes').innerHTML=`<h2>Design notes</h2><div class="pat">${P0[z.pattern]}</div><p class="sum">${sel}</p><ul>${n.map(t=>`<li>${t}</li>`).join('')}</ul><p class="sum">Sources: <a href="https://help.splunk.com/en/data-management/splunk-validated-architectures/splunk-platform-indexing-and-search">Splunk Validated Architectures</a> · <a href="https://splunkbase.splunk.com/app/4646">Mothership App for Splunk</a> · <a href="https://help.splunk.com/en/splunk-enterprise-security-8/administer/8.1/configuration-and-settings/pair-splunk-enterprise-security-with-splunk-soar">Pair ES with SOAR</a>. These rules and notes are a reference reading of those sources and have not had formal architect review.</p>`;document.getElementById('p-inv').innerHTML=invHtml(z,C);document.getElementById('p-sum').innerHTML=summaryHtml(z,C);document.getElementById('bnd').innerHTML=BND?bdHtml():''}
 const th=document.getElementById('th'),root=document.documentElement;
 const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
-const lbl=()=>{th.textContent=isDark()?'☀ Light mode':'☾ Dark mode'};
+const lbl=()=>{th.textContent=isDark()?'☀':'☾';th.title=isDark()?'Switch to light mode':'Switch to dark mode'};
 th.onclick=()=>{root.dataset.theme=isDark()?'light':'dark';lbl()};lbl();
-let TS=-1,STEPS=[],BND=false,INV=false,BD=[],CUR={};
-const EX=()=>`<button type="button" data-a="bd">${BND?'Hide':'Show'} trust boundaries</button><button type="button" data-a="inv">${INV?'Hide':'Show'} hardware inventory</button>`;
+function prep(o){const z={...o};z.es=true;z.n=5;z.d=z.pattern==='ded'?5:z.pattern==='multi'?0:1;z.sN=z.n-z.d;if(z.search==='stretch'&&z.avail!=='dr')z.search='shc';const hasS=z.pattern!=='ded',hasD=z.pattern!=='multi';z.sC=hasS?(z.edC==='prem'||z.soar):z.soar;z.sD=hasD&&(z.edD==='prem'||z.csoar);z.C=hasS?code(z):null;return z}
+const TRD={ded:['High: a separate stack per client','More distributed: each stack run separately','Higher: repeated stacks','High: per-client choices','Repeated deployments'],multi:['Logical: index and role separation','Centralised','Potentially lower: shared infrastructure','More standardised','Multi-tenancy design and controls'],hdash:['Mixed','Mixed','Variable','High','Both models to run'],hsearch:['Mixed','Mixed','Variable','High','Both models plus per-client search heads']};
+const TRL=['Customer separation','Central operations','Infrastructure overhead','Flexibility','Operational complexity'],PN={ded:'Dedicated',multi:'Shared',hdash:'Hybrid (client dashboards)',hsearch:'Hybrid (client search heads)'};
+function cmpHtml(zA,CA){const zB=prep({...S,...PRE[BI][1]}),CB=zB.C,[FA,KA]=inv(zA,CA),[FB,KB]=inv(zB,CB),sm=a=>a.reduce((n,r)=>n+r[1],0),R=(l,a,b)=>`<tr><td>${l}</td><td>${a}</td><td>${b}</td></tr>`;
+ return `<h2>Compare with another approach</h2><p class="sum">Option A is your current setup. Choose Option B: <select id="bsel">${PRE.map((p,i)=>`<option value="${i}"${i===BI?' selected':''}>${p[0]}</option>`).join('')}</select></p><div class="sc">${draw(zB,CB)}</div><div class="inv"><table><tr><th></th><th>Option A (current)</th><th>Option B</th></tr>${R('Pattern',PN[zA.pattern],PN[zB.pattern])}${R('Shared platform topology',CA||'None (dedicated stacks only)',CB||'None (dedicated stacks only)')}${R('Shared MSSP hosts (minimum)',sm(FA),sm(FB))}${R('Per-customer hosts (minimum)',sm(KA),sm(KB))}${TRL.map((l,i)=>R(l,TRD[zA.pattern][i],TRD[zB.pattern][i])).join('')}</table></div><p class="sum">Discussion points, not ratings or a sizing recommendation. Confirm with a Splunk solutions architect.</p>`}
+document.getElementById('p-cmp').addEventListener('change',e=>{if(e.target.id==='bsel'){BI=+e.target.value;go()}});
+function summaryHtml(z,C){const A=['Everything on the platform is licensed.','Clients above roughly 100 GB/day get their own dedicated stack.','Splunk Enterprise Security is in scope, and Splunk SOAR is the only SOAR covered.','Dedicated stacks can be hosted anywhere, so hosting is not shown.','Counts are illustrative minimums and have not been sized.'],Q=['Validate the topology'+(C?' ('+C+')':'')+' against the current Splunk Validated Architectures.','Confirm the multi-tenancy design: index, role and app separation.'];
+ if(z.view!=='itsm')Q.push('Confirm Mothership supportability and the service account model.');
+ if(z.sC||z.sD)Q.push('Confirm Splunk SOAR pairing with ES for the chosen versions and deployment.');
+ if(z.hf)Q.push('Confirm heavy forwarder sizing and the TLS design.');
+ if(z.avail!=='none')Q.push('Confirm replication and search factors and the site layout.');
+ Q.push('Size CPU, memory, storage, licence and network capacity.');
+ return `<h2>Assumptions</h2><ul>${A.map(t=>`<li>${t}</li>`).join('')}</ul><h2>Questions to confirm with a Splunk solutions architect</h2><ul>${Q.map(t=>`<li>${t}</li>`).join('')}</ul>`}
+let TS=-1,STEPS=[],BND=false,INV=false,BD=[],CUR={},CMP=false,BI=2;
+const EX=()=>`<button type="button" data-a="bd">${BND?'Hide':'Show'} trust boundaries</button><span class="sum" style="margin:0 0 0 auto">Tip: click any component for details and Splunk doc links</span>`;
 const BT={1:['Client to platform ingest','Data crosses from the client network into the MSP. Stolen or spoofed forwarder credentials could write into another client\u2019s index, and data in transit can be exposed.','TLS with client certificates, per-client HEC tokens, allow-listed sources, index restrictions per input.'],
 2:['Tenant boundary on the shared platform','A mis-scoped role, app or knowledge object could expose one client\u2019s data to another.','Index per client, roles limited with srchIndexesAllowed, reviews of role and app changes.'],
 3:['SOC pull into each stack or platform','Mothership and the ES Mothership app use service accounts on each stack, so one compromised account could reach many clients.','Read-only least-privilege accounts per stack, rotated secrets, network allow-listing of the SOC.'],
@@ -170,40 +192,86 @@ const BT={1:['Client to platform ingest','Data crosses from the client network i
 6:['Client users on the platform','Clients sit inside your platform. Weak scoping could expose other clients\u2019 data or allow heavy searches.','RBAC limited to their indexes, dashboard-only roles, search quotas.'],
 7:['Analyst access','Analysts can see every client, so one stolen analyst identity exposes them all.','SSO with MFA, per-client role views, audit logging.']};
 function bdHtml(){const u=[...new Set(BD)].sort();return `<h2>Trust boundaries and risks</h2><p class="sum">Typical discussion points, not a security assessment. The red dashed line is the client network edge.</p><ol>${u.map(n=>`<li value="${n}"><b>${BT[n][0]}.</b> ${BT[n][1]} <i>Typical controls:</i> ${BT[n][2]}</li>`).join('')}</ol>`}
-function inv(z,C){const F=[],K=[],hasS=z.pattern!=='ded',hasD=z.pattern!=='multi';
+function inv(z,C){const F=[],K=[],O=[],hasS=z.pattern!=='ded',hasD=z.pattern!=='multi';
  if(hasS){if(z.mwhere==='saas')F.push(['Splunk Cloud Platform stack',1,'Splunk-operated indexers and search heads, sized by the subscription']);
   else{const i=C[0],dg=(+C.slice(1))%10;
    F.push([i==='S'?'Single instance (search, index, ES)':'Indexers',i==='S'?1:i==='D'?2:i==='C'?3:6,i==='M'?'3 per site across 2 sites':i==='C'?'Replication factor 3 needs 3 peers':i==='D'?'Non-clustered':'Index, search and ES on one host']);
    if(i!=='S'){const n=dg>=3?3:dg;F.push(['ES search head'+(dg>=3?'s (cluster)':''),n,dg===4?'Stretched across sites':dg===3?'SHC members':dg===2?'One per site':'Dedicated to ES']);F.push(['Analyst search head'+(dg>=3?'s (cluster)':''),n,'Ad hoc search and dashboards']);if(dg>=3)F.push(['SHC deployers',2,'One per search head cluster']);
-    if(i!=='D')F.push(['Cluster Manager',i==='M'?2:1,i==='M'?'Active plus standby in another site':'Peer and bucket control']);
+    if(i!=='D'){F.push(['Cluster Manager',1,'Peer and bucket control']);if(i==='M')O.push(['Standby Cluster Manager',1,'In a second site'])}
     F.push(['License Manager, Deployment Server, Monitoring Console',3,'Small hosts, often co-located'])}}
-  if(z.hf)F.push(['Heavy forwarders',2,'Load-balanced']);
-  if(z.sC)F.push(['Splunk SOAR',1,z.edC==='prem'?'Included with the ES Premier entitlement':'Standalone']);
+  if(z.hf)O.push(['Heavy forwarders',2,'Load-balanced']);
+  if(z.sC)O.push(['Splunk SOAR',1,z.edC==='prem'?'Included with the ES Premier entitlement':'Standalone']);
   if(z.pattern==='hsearch')K.push(['Per-client search head',1,'Per client on the shared platform'])}
- else{if(z.view!=='itsm')F.push(['SOC Splunk instance',1,'Hosts the Mothership app']);if(z.sC)F.push(['Splunk SOAR',1,'Standalone, SOC automation'])}
+ else{if(z.view!=='itsm')F.push(['SOC Splunk instance',1,'Hosts the Mothership app']);if(z.sC)O.push(['Splunk SOAR',1,'Standalone, SOC automation'])}
  if(hasD){if(z.csize==='single')K.push(['Single instance (search, index, ES)',1,'Per dedicated client']);else{K.push(['Indexers',3,'Per dedicated client']);K.push(['Cluster Manager',1,'Per dedicated client']);K.push(['ES search head',1,'Per dedicated client'])}
   if(z.sD)K.push(['Splunk SOAR',1,'Per dedicated client'])}
- return[F,K]}
-function invHtml(z,C){const [F,K]=inv(z,C),t=a=>a.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join(''),sm=a=>a.reduce((n,r)=>n+r[1],0);
- return `<div class="inv"><h2>Indicative hardware inventory</h2><p class="sum">Minimum hosts, VMs or instances for the design as drawn. CPU, RAM and storage depend on ingest, retention and search load, which are not modelled, so check Splunk\u2019s reference hardware.</p><table><tr><th>Fixed MSP-side component</th><th>Count</th><th>Notes</th></tr>${t(F)}<tr><td><b>Fixed total</b></td><td><b>${sm(F)}</b></td><td></td></tr></table>${K.length?`<table><tr><th>Per client (repeats for each client of that type)</th><th>Count</th><th>Notes</th></tr>${t(K)}<tr><td><b>Total per client</b></td><td><b>${sm(K)}</b></td><td></td></tr></table>`:''}<p><button type="button" id="csv">Download CSV</button></p></div>`}
-document.getElementById('notes').addEventListener('click',e=>{if(e.target.id!=='csv')return;const [F,K]=inv(CUR.z,CUR.C),rows=[['Group','Component','Count','Notes'],...F.map(r=>['Fixed',...r]),...K.map(r=>['Per client',...r])],a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'}));a.download='splunk-architecture-inventory.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+ return[F,K,O]}
+function invHtml(z,C){const [F,K,O]=inv(z,C),t=a=>a.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join(''),sm=a=>a.reduce((n,r)=>n+r[1],0),tb=(h,a,l)=>a.length?`<table><tr><th>${h}</th><th>Count</th><th>Notes</th></tr>${t(a)}<tr><td><b>${l}</b></td><td><b>${sm(a)}</b></td><td></td></tr></table>`:'';
+ return `<div class="inv"><h2>Indicative infrastructure footprint</h2><p class="sum">Illustrative minimums for discussion. CPU, memory, storage, licensing and network capacity need separate sizing by a qualified Splunk solutions architect.</p>${tb('Shared MSSP infrastructure',F,'Shared total')}${tb('Per-customer infrastructure (repeats for each dedicated client or client search head)',K,'Total per customer')}${tb('Optional components',O,'Optional total')}<p><button type="button" id="csv">Download CSV</button></p></div>`}
+const csvDl=()=>{const [F,K,O]=inv(CUR.z,CUR.C),rows=[['Group','Component','Count','Notes'],...F.map(r=>['Shared',...r]),...K.map(r=>['Per customer',...r]),...O.map(r=>['Optional',...r])],a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'}));a.download='splunk-architecture-footprint.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+document.getElementById('p-inv').addEventListener('click',e=>{if(e.target.id==='csv')csvDl()});
+document.getElementById('cv').onclick=csvDl;
+document.querySelector('.menu').addEventListener('click',()=>{document.querySelector('.exp').open=false});
+let TAB='notes';const TB=[['notes','Design notes'],['inv','Infrastructure footprint'],['cmp','Compare'],['sum','Summary']];
+function tabs(){document.getElementById('tabs').innerHTML=TB.map(([k,l])=>`<button type="button" data-t="${k}" class="${k===TAB?'on':''}">${l}</button>`).join('');TB.forEach(([k])=>{document.getElementById('p-'+k).hidden=k!==TAB})}
+document.getElementById('tabs').onclick=e=>{if(e.target.dataset.t){TAB=e.target.dataset.t;tabs()}};
+const LD='18 Nov 2026';
+const L={cap:['Capacity Planning Manual: reference hardware','https://docs.splunk.com/Documentation/Splunk/latest/Capacity/Referencehardware'],sva:['Splunk Validated Architectures','https://help.splunk.com/en/data-management/splunk-validated-architectures/splunk-platform-indexing-and-search'],idxc:['Indexer clusters and index replication (10.6)','https://help.splunk.com/en/splunk-enterprise/administer/manage-indexers-and-indexer-clusters/10.6/overview-of-indexer-clusters-and-index-replication'],shc:['Search head clustering architecture','https://docs.splunk.com/Documentation/Splunk/latest/DistSearch/SHCarchitecture'],esp:['Enterprise Security deployment planning','https://docs.splunk.com/Documentation/ES/latest/Install/DeploymentPlanning'],esperf:['Enterprise Security performance reference (7.3)','https://help.splunk.com/en/splunk-enterprise-security-7/install/7.3/planning/performance-reference-for-splunk-enterprise-security'],esl:['Enterprise Security licensing (8.7)','https://help.splunk.com/en/splunk-enterprise-security-8/user-guide/8.7/introduction/licensing-for-splunk-enterprise-security'],soarreq:['Splunk SOAR system requirements (6.4.1)','https://help.splunk.com/en/splunk-soar/soar-on-premises/install-and-upgrade-soar-on-premises/6.4.1/system-requirements/system-requirements-for-production-use'],soarva:['Splunk SOAR Validated Architectures (older PDF)','https://www.splunk.com/pdfs/technical-briefs/splunk-phantom-validated-architectures.pdf'],ab:['Automation Broker system requirements','https://help.splunk.com/en/splunk-soar/splunk-automation-broker/system-requirements-for-modern-and-classic-automation-brokers/splunk-soar-modern-and-classic-automation-broker-system-requirements'],soarpair:['Pair ES with SOAR (8.1)','https://help.splunk.com/en/splunk-enterprise-security-8/administer/8.1/configuration-and-settings/pair-splunk-enterprise-security-with-splunk-soar'],fwd:['Types of forwarders (10.0)','https://help.splunk.com/en/splunk-enterprise/forward-and-process-data/forwarding-and-receiving-data/10.0/introduction-to-forwarding/types-of-forwarders'],moth:['Mothership App for Splunk (Splunkbase)','https://splunkbase.splunk.com/app/4646']};
+const CD={analyst:{t:'MSP SOC analyst',d:'The person who triages and investigates alerts for every client.',s:'People, not infrastructure: staffing depends on alert volume and your service levels.',l:[]},
+moth:{t:'Mothership App for Splunk',d:'A Splunkbase app that runs scheduled searches on other Splunk instances and stores the results locally, so a SOC can see many stacks in one place. The ES Mothership app rolls up notable events across ES instances.',s:'How many stacks it pulls from and how often. It runs on a SOC Splunk instance.',l:['moth']},
+itsm:{t:'ITSM tool',d:'Your ticketing system, for example ServiceNow. It is not a Splunk component.',s:'Not sized here: it depends on the ITSM product and ticket volume.',l:[]},
+soar:{t:'Splunk SOAR',d:'Security orchestration, automation and response. It runs playbooks that automate response steps.',s:'Playbook volume and concurrency. Splunk’s SOAR Validated Architectures guide (an older PDF) says there was no formal sizing guide and recommends involving Professional Services.',l:['soarreq','soarva','soarpair','ab']},
+es:{t:'Enterprise Security search heads',d:'Run ES detections and the notable-event framework. ES is installed on a dedicated search head or search head cluster.',s:'Detection and data model load, data volume and search concurrency. Splunk suggests involving Professional Services at around 1 TB per day or more.',l:['esp','esperf','esl','cap','sva']},
+ash:{t:'Analyst search heads',d:'Search heads for ad hoc investigation and dashboards, kept separate from the ES search heads.',s:'Concurrent users and scheduled searches: more active users and higher concurrency need more CPU cores.',l:['cap','shc']},
+idx:{t:'Indexers',d:'Receive, parse and store data, and do the search work against it.',s:'Daily ingest volume and concurrent search volume are the two main factors, and storage speed matters.',l:['cap','idxc','sva']},
+hf:{t:'Heavy forwarders',d:'Full Splunk instances that parse data and can filter and route it before it reaches the platform. Also used for API and database inputs.',s:'Data volume and parsing or routing work. Splunk suggests a heavy forwarder only when a universal forwarder cannot meet the need.',l:['fwd','cap']},
+env:{t:'Client environment',d:'The client’s systems and users, and the forwarders that send their logs and alerts.',s:'Number of sources and event rates. Universal forwarders are lightweight.',l:['fwd']},
+users:{t:'Client users',d:'People at the client who see outcomes on the shared platform.',s:'Number of users and what searches they can run.',l:[]},
+cdash:{t:'Client dashboards',d:'Read-only dashboards and reports for each client, with no search capability.',s:'Number of clients, dashboard refreshes and scheduled searches.',l:[]},
+csh:{t:'Client search heads',d:'A search head per client, limited by role-based access to that client’s indexes.',s:'Number of clients and each client’s search load. Each one is a host to run.',l:['cap']},
+mgmt:{t:'Management components',d:'Cluster Manager (peer and bucket control), License Manager, Deployment Server, Monitoring Console and search head cluster deployers. They manage the deployment and often run on small separate hosts.',s:'Small compared with indexers, but Splunk gives separate guidance for management components in its reference hardware page.',l:['cap','idxc','shc']}};
+function roleOf(k,z,C){const sa=C==='Splunk Cloud',i=C&&!sa?C[0]:'',dg=C&&!sa?(+C.slice(1))%10:0,hasS=z.pattern!=='ded',hasD=z.pattern!=='multi';
+ const R={analyst:()=>'Works from the '+(z.view==='itsm'?'ITSM tool':z.view==='moth'?'Mothership view':'Mothership view and the ITSM tool')+'. This identity can see every client, so protect it with SSO and MFA.',
+ moth:()=>'Pulls '+(hasS?'the shared platform'+(hasD?' and each dedicated stack':''):'each dedicated stack')+' on a schedule into one SOC view.',
+ itsm:()=>'Receives alerts as tickets and tracks hand-offs and SLAs'+(z.view==='both'?', while Splunk is used to investigate.':'.'),
+ soar:()=>hasS?(z.edC==='prem'?'Included with ES Premier, drawn beside ES on the shared platform.':'Standalone, paired with ES on the shared platform.')+' Automates the SOC’s own response.':'Standalone, automating the SOC’s own response.',
+ csoar:()=>(z.edD==='prem'?'Included with ES Premier':'Standalone')+', beside each dedicated stack’s ES, running that client’s response runbooks.',
+ es:()=>(hasS?(sa?'Managed by Splunk.':i==='S'?'Runs on the single instance.':dg===4?'A search head cluster of 3, stretched across sites.':dg===3?'A search head cluster of 3, plus a deployer.':dg===2?'Two search heads, one per site.':'One search head, dedicated to ES.'):'')+(hasD?' Each dedicated stack also runs its own ES ('+(z.edD==='prem'?'Premier':'Essentials')+').':''),
+ ash:()=>dg>=3?'A search head cluster for ad hoc search and dashboards.':dg===2?'Two search heads, one per site.':'One search head.',
+ idx:()=>(hasS?(sa?'Operated by Splunk.':i==='S'?'One instance indexes and searches.':i==='D'?'Two or more indexers, with no copies between them.':i==='C'?'A cluster of 3 or more peers keeping 3 copies, 2 of them searchable.':'A multi-site cluster with copies placed in each site.'):'')+(hasD?' Each dedicated stack is '+(z.csize==='single'?'a single instance.':'its own indexer cluster.'):''),
+ hf:()=>'Two heavy forwarders, load-balanced, in front of the shared platform.',
+ env:()=>'Sends logs and alerts to '+(hasS&&hasD?'the shared platform or a dedicated stack':hasS?'the shared platform':'its own dedicated stack')+' over TLS with per-client credentials.',
+ users:()=>z.pattern==='hdash'?'Read-only dashboards and reports, with no search.':'Search through a restricted search head limited to their own indexes.',
+ cdash:()=>'Pre-built, read-only views for each client.',csh:()=>'One per client on the shared platform, restricted by role.',
+ mgmt:()=>sa?'Customer side only: the Deployment Server and heavy forwarders.':'Cluster Manager, License Manager, Deployment Server, Monitoring Console'+(dg>=3?' and search head cluster deployers':'')+'.'};
+ return (R[k]||(()=>''))()}
+function openCard(g){const k=g.dataset.k,d=CD[k==='csoar'?'soar':k];if(!d)return;const z=CUR.z,cc=document.getElementById('cc'),dc=document.getElementById('dcard');
+ cc.innerHTML=`<button class="x" type="button" aria-label="Close">×</button><h3>${d.t}</h3><p>${d.d}</p><p><b>In this design:</b> ${roleOf(k,z,CUR.C)}</p><p><b>What drives sizing:</b> ${d.s}</p>${d.l.length?`<p><b>Splunk docs:</b> ${d.l.map(i=>`<a href="${L[i][1]}" target="_blank" rel="noopener">${L[i][0]}</a>`).join(' · ')}</p>`:''}<p class="sum">Guidance links only, not sizing advice. Ask your Splunk team to size a production design. Links last checked ${LD}.</p>`;
+ cc.hidden=false;const r=g.getBoundingClientRect(),c=dc.getBoundingClientRect();let t=r.bottom-c.top+8;if(t+cc.offsetHeight>c.height)t=Math.max(8,r.top-c.top-cc.offsetHeight-8);
+ cc.style.left=Math.max(8,Math.min(r.left-c.left,c.width-cc.offsetWidth-8))+'px';cc.style.top=t+'px';cc.focus()}
+const outEl=document.getElementById('out');
+outEl.addEventListener('click',e=>{const g=e.target.closest('g[data-k]');if(g)openCard(g)});
+outEl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const g=e.target.closest&&e.target.closest('g[data-k]');if(g){e.preventDefault();openCard(g)}}});
+document.getElementById('cc').addEventListener('click',e=>{if(e.target.classList.contains('x'))e.currentTarget.hidden=true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('cc').hidden=true});
+document.addEventListener('click',e=>{if(!e.target.closest('#cc')&&!e.target.closest('g[data-k]'))document.getElementById('cc').hidden=true});
 function steps(z,C){const hasS=z.pattern!=='ded',hasD=z.pattern!=='multi',hy=z.pattern[0]==='h',s=[];
- s.push(['A system in a client environment produces a log or an alert.',['env']]);
- s.push([hasD&&!hasS?'The client\u2019s forwarder sends it to that client\u2019s own Splunk stack.':hasS&&!hasD?'The forwarder sends it to the shared platform'+(z.hf?' through the heavy forwarder tier':'')+'.':'The forwarder sends it to the client\u2019s dedicated stack or to the shared platform'+(z.hf?' (through the heavy forwarders)':'')+', depending on the client.',['env','hf']]);
- s.push(['It is indexed in that client\u2019s own index or stack, so client data stays separated.',['idx']]);
- s.push([z.es?'Enterprise Security detections match it and raise a notable event.':'A scheduled search or alert matches it.',['es']]);
- if(z.sC)s.push(['Splunk SOAR automates the SOC\u2019s own response: enrichment, triage and case handling.',['soar']]);
- s.push([z.view==='moth'?'Mothership pulls the alert up into the SOC view on its next scheduled run.':z.view==='itsm'?'The alert is pushed to the ITSM tool as a ticket.':'Mothership pulls it into the SOC view, and a ticket is raised in the ITSM tool.',z.view==='moth'?['moth']:z.view==='itsm'?['itsm']:['moth','itsm']]);
- s.push(['The SOC analyst reviews it and decides what to do.',['analyst']]);
- s.push([z.sD?'The approved response goes to the client\u2019s Splunk SOAR beside their ES, which runs their response runbook.':'The analyst tells the client what to act on (ticket, call or email).',z.sD?['csoar']:['env']]);
- if(hy)s.push([z.pattern==='hdash'?'The client sees the outcome in their dashboards.':'The client can search their own data through their restricted search head.',['users']]);
+ s.push(['A system in a client environment produces a log or an alert.',['env'],'Why: the design starts from where each client’s data originates.']);
+ s.push([hasD&&!hasS?'The client\u2019s forwarder sends it to that client\u2019s own Splunk stack.':hasS&&!hasD?'The forwarder sends it to the shared platform'+(z.hf?' through the heavy forwarder tier':'')+'.':'The forwarder sends it to the client\u2019s dedicated stack or to the shared platform'+(z.hf?' (through the heavy forwarders)':'')+', depending on the client.',['env','hf'],hasD&&hasS?'Why: large or isolation-sensitive clients get their own stack, while the rest share the platform, which keeps the MSP’s infrastructure down.':hasD?'Why: each client has its own stack, so data never mixes.':'Why: one platform serves everyone, so each client’s data is routed to its own index.']);
+ s.push(['It is indexed in that client\u2019s own index or stack, so client data stays separated.',['idx'],'Why: separate indexes or stacks are what keep one client’s data apart from another’s.']);
+ s.push([z.es?'Enterprise Security detections match it and raise a notable event.':'A scheduled search or alert matches it.',['es'],'Why: detections turn raw events into notable events an analyst can act on.']);
+ if(z.sC)s.push(['Splunk SOAR automates the SOC\u2019s own response: enrichment, triage and case handling.',['soar'],'Why: automating routine steps frees analysts for judgement.']);
+ s.push([z.view==='moth'?'Mothership pulls the alert up into the SOC view on its next scheduled run.':z.view==='itsm'?'The alert is pushed to the ITSM tool as a ticket.':'Mothership pulls it into the SOC view, and a ticket is raised in the ITSM tool.',z.view==='moth'?['moth']:z.view==='itsm'?['itsm']:['moth','itsm'],z.view==='moth'?'Why: Mothership gives analysts one place to see alerts that sit in separate stacks.':z.view==='itsm'?'Why: the ITSM tool is where tickets, SLAs and hand-offs are tracked.':'Why: Splunk is where analysts investigate, and the ITSM tool is where tickets and SLAs are tracked.']);
+ s.push(['The SOC analyst reviews it and decides what to do.',['analyst'],'Why: a person decides what is a real incident and what needs the client.']);
+ s.push([z.sD?'The approved response goes to the client\u2019s Splunk SOAR beside their ES, which runs their response runbook.':'The analyst tells the client what to act on (ticket, call or email).',z.sD?['csoar']:['env'],z.sD?'Why: the client’s own runbooks define which actions are allowed on their systems.':'Why: without a client-side Splunk SOAR, response depends on the client acting on the analyst’s guidance.']);
+ if(hy)s.push([z.pattern==='hdash'?'The client sees the outcome in their dashboards.':'The client can search their own data through their restricted search head.',['users'],'Why: this access model decides what clients can see and do without SOC involvement.']);
  return s}
 function trace(){const tr=document.getElementById('tr'),o=document.getElementById('out');
  if(TS>=STEPS.length)TS=STEPS.length-1;
- tr.innerHTML=TS<0?'<button type="button" data-a="go">\u25b6 Trace an alert through this design</button>'+EX():`<button type="button" data-a="prev"${TS?'':' disabled'}>\u25c0 Back</button><button type="button" data-a="next"${TS<STEPS.length-1?'':' disabled'}>Next \u25b6</button><button type="button" data-a="x">Exit trace</button>${EX()}<span class="sum" style="margin:0">Step ${TS+1} of ${STEPS.length}</span><div class="cap">${STEPS[TS][0]}</div>`;
+ tr.innerHTML=TS<0?'<button type="button" class="pri" data-a="go">\u25b6 Trace an alert through this design</button>'+EX():`<button type="button" data-a="prev"${TS?'':' disabled'}>\u25c0 Back</button><button type="button" data-a="next"${TS<STEPS.length-1?'':' disabled'}>Next \u25b6</button><button type="button" data-a="x">Exit trace</button>${EX()}<span class="sum" style="margin:0">Step ${TS+1} of ${STEPS.length}</span><div class="cap">${STEPS[TS][0]}<div class="why">${STEPS[TS][2]||''}</div></div>`;
  const g=o.querySelector('svg');if(!g)return;g.classList.toggle('trace',TS>=0);
- o.querySelectorAll('g[data-k]').forEach(e=>e.classList.toggle('hl',TS>=0&&STEPS[TS][1].includes(e.dataset.k)))}
-document.getElementById('tr').onclick=e=>{const a=e.target.dataset.a;if(!a)return;if(a==='bd'||a==='inv'){a==='bd'?BND=!BND:INV=!INV;go();return}TS=a==='go'?0:a==='next'?TS+1:a==='prev'?TS-1:-1;trace()};
+ o.querySelectorAll('g[data-k]').forEach(e=>{e.classList.toggle('hl',TS>=0&&STEPS[TS][1].includes(e.dataset.k));e.setAttribute('tabindex','0');e.setAttribute('role','button')})}
+document.getElementById('tr').onclick=e=>{const a=e.target.dataset.a;if(!a)return;if(a==='bd'||a==='inv'||a==='cmp'){a==='bd'?BND=!BND:a==='inv'?INV=!INV:CMP=!CMP;go();return}TS=a==='go'?0:a==='next'?TS+1:a==='prev'?TS-1:-1;trace()};
 const PRE=[['Dedicated stacks',{pattern:'ded',view:'moth',edC:'ess',edD:'prem',soar:true,csoar:false,csize:'clustered'}],
 ['Multi-client platform',{pattern:'multi',view:'moth',mwhere:'onprem',avail:'ha',search:'shc',virt:false,hf:true,edC:'prem',edD:'ess',soar:false,csoar:false}],
 ['Hybrid: dashboards',{pattern:'hdash',view:'both',mwhere:'onprem',avail:'ha',search:'shc',hf:true,csize:'single',edC:'prem',edD:'ess',soar:false,csoar:true}],
@@ -215,5 +283,6 @@ const SV='.b{stroke:#6f7c90;stroke-width:1.2}.src{fill:#e6edfb}.idx{fill:#dff3e8
 document.getElementById('sv').onclick=()=>{const g=document.querySelector('#out svg').cloneNode(true);g.setAttribute('xmlns','http://www.w3.org/2000/svg');g.insertAdjacentHTML('afterbegin','<style>'+SV+'</style><rect width="100%" height="100%" fill="#fff"/>');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([g.outerHTML],{type:'image/svg+xml'}));a.download='splunk-architecture.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.getElementById('pr').onclick=()=>window.print();
 
+const w=document.getElementById('warn');try{w.showModal()}catch(e){}w.addEventListener('cancel',e=>e.preventDefault());document.getElementById('ok').onclick=()=>w.close();
 go();
 </script></body></html>
