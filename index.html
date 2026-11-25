@@ -45,11 +45,14 @@ svg g[data-k]{cursor:pointer}svg g[data-k]:hover .b{stroke-width:2.4}svg g[data-
 .pre button.on{border-color:var(--ac);color:var(--ac);font-weight:600}.wm summary{font-size:12.5px;font-weight:400;color:var(--ac);cursor:pointer;margin:2px 0 4px}.wm p{margin:4px 0}
 .pm .wrap{grid-template-columns:1fr}.pm form{display:none}
 .tb .exp{display:flex;align-items:center;height:36px}.tb .exp summary{display:flex;margin:0}.tb{flex-wrap:nowrap;flex-shrink:0}
+.ver{font-size:11.5px;color:var(--mu);margin-bottom:2px}.ft{max-width:1400px;margin:0 auto;padding:0 24px 28px;color:var(--mu);font-size:13px}.ft a{color:var(--ac)}
+@media(max-width:900px){.ft{padding:0 12px 24px}}
 </style></head><body class="pm">
-<header><div><h1>Splunk MSSP Architecture Explorer</h1>
+<header><div><div class="ver" id="ver"></div><h1>Splunk MSSP Architecture Explorer</h1>
 <p>Splunk Enterprise Security is the foundation of every design here. Explore an MSSP operating model, visualise how Splunk supports it, then discuss the considerations with a Splunk solutions architect. Start from a common deployment below, then use Customise design to adjust it. For discussion only: not a validated or production-ready design.</p><div class="chips"><span>1 · Explore</span><span>2 · Visualise</span><span>3 · Discuss</span></div></div><div class="tb"><button id="th" type="button" aria-label="Switch between dark and light mode"></button><button type="button" id="pm">Customise design</button><details class="exp"><summary>Export ▾</summary><div class="menu"><button type="button" id="pr">Print / PDF</button><button type="button" id="sv">Download SVG</button><button type="button" id="cv">Download footprint CSV</button></div></details></div></header><div class="pre" id="pre"></div>
 <div class="wrap"><form id="f" onsubmit="return false"></form>
 <div><div class="card" id="dcard"><div class="tr" id="tr"></div><div class="sc" id="out"></div><div id="bnd"></div><div id="cc" class="cc" tabindex="-1" role="dialog" aria-label="Component details" hidden></div></div><div class="card"><div class="tabs" id="tabs"></div><div id="p-notes"></div><div id="p-inv" hidden></div><div id="p-cmp" hidden></div><div id="p-sum" hidden></div></div></div></div>
+<footer class="ft">Built by <a href="https://www.linkedin.com/in/matt-parkinson-8a5153109/" target="_blank" rel="noopener noreferrer">Matt Parkinson</a> using Claude.</footer>
 <dialog id="warn"><h2>For discussion and visualisation only</h2><p>This tool helps you visualise and discuss possible Splunk architectures. It does not produce a production-ready design. Topologies, counts and notes are illustrative and have not had formal architect review.</p><p><b>A full scoping of requirements and a Splunk solutions architect should be involved in any production design.</b></p><p><button type="button" id="ok">I understand</button></p></dialog>
 <script>
 const S={pattern:'multi',view:'moth',mwhere:'onprem',avail:'ha',search:'shc',virt:false,hf:false,edC:'ess',edD:'ess',soar:false,csoar:false,csize:'single',hSaas:true,hOnp:true,hCld:true};
@@ -147,7 +150,7 @@ function draw(z,C){
   up(sx+sw/2)}
  lab(P,y3+66,'Customer environments: where customer data and users sit');
  if(BND){E.push(`<line x1="${P}" y1="${y2+H+18}" x2="${W-P}" y2="${y2+H+18}" stroke="#d1453b" stroke-width="2" stroke-dasharray="8 5"/><text class="h" x="${W-P}" y="${y2+H+14}" text-anchor="end">Client network edge</text>`)}
- lab(P,y3+92,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+110,'Splunk MSSP Architecture Explorer v12 · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
+ lab(P,y3+92,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+110,'Splunk MSSP Architecture Explorer v13 · generated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
  return `<svg viewBox="0 0 ${W} ${y3+122}" role="img" aria-label="Splunk MSSP architecture diagram"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0L10 5L0 10z"/></marker></defs>${E.join('')}</svg>`}
 
 function notes(z,C){const n=[],sa=z.mwhere==='saas',hasS=!!C,hasD=z.pattern!=='multi';
@@ -306,6 +309,7 @@ const SV='.b{stroke:#6f7c90;stroke-width:1.2}.src{fill:#e6edfb}.idx{fill:#dff3e8
 document.getElementById('sv').onclick=()=>{const g=document.querySelector('#out svg').cloneNode(true);g.setAttribute('xmlns','http://www.w3.org/2000/svg');g.insertAdjacentHTML('afterbegin','<style>'+SV+'</style><rect width="100%" height="100%" fill="#fff"/>');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([g.outerHTML],{type:'image/svg+xml'}));a.download='splunk-architecture.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.getElementById('pr').onclick=()=>window.print();
 
+document.getElementById('ver').textContent='v13 · Content last updated 25 Nov 2026 · Splunk doc links last checked '+LD;
 const w=document.getElementById('warn');try{w.showModal()}catch(e){}w.addEventListener('cancel',e=>e.preventDefault());document.getElementById('ok').onclick=()=>w.close();
 go();
 </script></body></html>
