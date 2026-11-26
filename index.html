@@ -28,11 +28,11 @@ h2{font-size:16px;margin:0 0 6px}ul{margin:6px 0 0;padding-left:20px}li{margin:5
 .t{fill:var(--tx);font:600 13px system-ui,sans-serif;text-anchor:middle}.s{fill:var(--mu);font:11px system-ui,sans-serif;text-anchor:middle}.h{fill:var(--mu);font:600 12px system-ui,sans-serif}
 .ar{stroke:var(--ln);stroke-width:1.4;fill:none}.mk{fill:var(--ln)}
 .inv table{border-collapse:collapse;width:100%;margin:8px 0}.inv td,.inv th{border:1px solid var(--bd);padding:4px 8px;text-align:left;font-size:13px}.inv th{background:var(--bg)}ol{margin:6px 0 12px;padding-left:24px}
-@page{size:A4 landscape;margin:0}
+@page{size:A4 landscape;margin:14mm 12mm}
 @media print{:root,:root[data-theme="dark"],:root:not([data-theme="light"]){--bg:#fff;--card:#fff;--tx:#18212f;--mu:#5a677b;--bd:#d5dbe5;--ac:#0a6e52;--src:#e6edfb;--idx:#dff3e8;--sh:#e8e3f8;--ten:#fff3c4;--ln:#6f7c90}
-body{padding:10mm;font-size:12px}header{display:block;padding:0}header p,.tb,.pre,form,.tr{display:none!important}.wrap{display:block;padding:0;margin:0;max-width:none}
-.card{border:0;padding:0}.card+.card{margin-top:8px}.sc{overflow:visible}.sc svg{min-width:0;width:100%}
-dialog{display:none!important}.tabs,.cc{display:none!important}#p-mc[hidden],#p-lic[hidden],#p-inv[hidden],#p-sum[hidden]{display:block!important}#p-cmp{display:none!important}#p-notes{break-before:page}#p-notes ul,#p-sum ul{columns:2;column-gap:24px}li{break-inside:avoid}.inv table{break-inside:avoid}}
+body{padding:0;font-size:12px}header{display:block;padding:0}header p,.chips,.tb,.pre,form,.tr{display:none!important}.wrap{display:block;padding:0;margin:0;max-width:none}
+.card{border:0;padding:0}.card+.card{margin-top:8px}.sc{overflow:visible}.sc svg{min-width:0;width:100%;max-height:150mm}#dcard{break-after:page}#bnd:empty{display:none}#bnd{break-before:page}
+dialog{display:none!important}.tabs,.cc{display:none!important}#p-notes[hidden],#p-mc[hidden],#p-lic[hidden],#p-inv[hidden],#p-sum[hidden]{display:block!important}#p-cmp{display:none!important}#p-inv{break-before:page;break-after:page}h2,h3{break-after:avoid}#p-notes ul,#p-sum ul{columns:2;column-gap:24px}li{break-inside:avoid}.inv table{break-inside:avoid}}
 .st{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ac);margin:4px 0 6px}.hp{color:var(--mu);font-size:12.5px;margin:0 0 4px}details summary{cursor:pointer;font-weight:600;margin-bottom:8px}.why{color:var(--mu);font-size:13px;margin-top:4px}
 dialog{border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);max-width:520px;padding:12px 24px}dialog::backdrop{background:rgba(0,0,0,.6)}dialog h2{margin-top:8px}
 .exp{position:relative}.exp summary{list-style:none;cursor:pointer;border:1px solid var(--bd);background:var(--card);border-radius:8px;padding:6px 12px}.exp summary::-webkit-details-marker{display:none}.menu{position:absolute;right:0;top:110%;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:4px;z-index:30;min-width:210px}.menu button{text-align:left}
@@ -51,7 +51,7 @@ svg g[data-k]{cursor:pointer}svg g[data-k]:hover .b{stroke-width:2.4}svg g[data-
 .ask{display:inline-block;border:1px solid var(--ac);color:var(--ac);border-radius:999px;padding:0 8px;font-size:11.5px;margin-left:4px;white-space:nowrap}#p-lic h3{margin:14px 0 4px;font-size:15px}
 </style></head><body class="pm">
 <header><div><div class="ver" id="ver"></div><h1>Splunk MSSP Architecture Explorer</h1>
-<p>Splunk Enterprise Security is the foundation of every design here. Explore an MSSP operating model, visualise how Splunk supports it, then discuss the considerations with a Splunk solutions architect. Start from a common deployment below, then use Customise design to adjust it. For discussion only: not a validated or production-ready design.</p><div class="chips"><span>1 · Explore</span><span>2 · Visualise</span><span>3 · Discuss</span></div></div><div class="tb"><button id="th" type="button" aria-label="Switch between dark and light mode"></button><button type="button" id="pm">Customise design</button><details class="exp"><summary>Export ▾</summary><div class="menu"><button type="button" id="pr">Print / PDF</button><button type="button" id="sv">Download SVG</button><button type="button" id="cv">Download footprint CSV</button></div></details></div></header><div class="pre" id="pre"></div>
+<p>Splunk Enterprise Security is the foundation of every design here. Explore an MSSP operating model, visualise how Splunk supports it, then discuss the considerations with a Splunk solutions architect. Start from a common deployment below, then use Customise design to adjust it. For discussion only: not a validated or production-ready design.</p><div class="chips"><span>1 · Explore</span><span>2 · Visualise</span><span>3 · Discuss</span></div></div><div class="tb"><button id="th" type="button" aria-label="Switch between dark and light mode"></button><button type="button" id="pm">Customise design</button><details class="exp"><summary>Export ▾</summary><div class="menu"><button type="button" id="pr">Print / PDF</button><button type="button" id="sv">Download SVG</button><button type="button" id="cv">Download footprint CSV</button><div class="sum" style="margin:4px 6px 2px;max-width:210px">Printing: untick “Headers and footers” in the print dialog for a clean page.</div></div></details></div></header><div class="pre" id="pre"></div>
 <div class="wrap"><form id="f" onsubmit="return false"></form>
 <div><div class="card" id="dcard"><div class="tr" id="tr"></div><div class="sc" id="out"></div><div id="bnd"></div><div id="cc" class="cc" tabindex="-1" role="dialog" aria-label="Component details" hidden></div></div><div class="card"><div class="tabs" id="tabs"></div><div id="p-mc" hidden></div><div id="p-lic" hidden></div><div id="p-notes"></div><div id="p-inv" hidden></div><div id="p-cmp" hidden></div><div id="p-sum" hidden></div></div></div></div>
 <footer class="ft">Built by <a href="https://www.linkedin.com/in/matt-parkinson-8a5153109/" target="_blank" rel="noopener noreferrer">Matt Parkinson</a> using Claude.</footer>
@@ -152,7 +152,7 @@ function draw(z,C){
   up(sx+sw/2)}
  lab(P,y3+66,'Customer environments: where customer data and users sit');
  if(BND){E.push(`<line x1="${P}" y1="${y2+H+18}" x2="${W-P}" y2="${y2+H+18}" stroke="#d1453b" stroke-width="2" stroke-dasharray="8 5"/><text class="h" x="${W-P}" y="${y2+H+14}" text-anchor="end">Client network edge</text>`)}
- lab(P,y3+92,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+110,'Splunk MSSP Architecture Explorer v15 · generated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
+ lab(P,y3+92,'Reference design only, not an endorsed or validated Splunk architecture. Review against Splunk guidance before use.');lab(P,y3+110,'Splunk MSSP Architecture Explorer v17 · generated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}));
  return `<svg viewBox="0 0 ${W} ${y3+122}" role="img" aria-label="Splunk MSSP architecture diagram"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0L10 5L0 10z"/></marker></defs>${E.join('')}</svg>`}
 
 function notes(z,C){const n=[],sa=z.mwhere==='saas',hasS=!!C,hasD=z.pattern!=='multi';
@@ -333,7 +333,7 @@ const SV='.b{stroke:#6f7c90;stroke-width:1.2}.src{fill:#e6edfb}.idx{fill:#dff3e8
 document.getElementById('sv').onclick=()=>{const g=document.querySelector('#out svg').cloneNode(true);g.setAttribute('xmlns','http://www.w3.org/2000/svg');g.insertAdjacentHTML('afterbegin','<style>'+SV+'</style><rect width="100%" height="100%" fill="#fff"/>');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([g.outerHTML],{type:'image/svg+xml'}));a.download='splunk-architecture.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.getElementById('pr').onclick=()=>window.print();
 
-document.getElementById('ver').textContent='v15 · Content last updated 26 Nov 2026 · Splunk doc links last checked '+LD;
+document.getElementById('ver').textContent='v17 · Content last updated 26 Nov 2026 · Splunk doc links last checked '+LD;
 const w=document.getElementById('warn');try{w.showModal()}catch(e){}w.addEventListener('cancel',e=>e.preventDefault());document.getElementById('ok').onclick=()=>w.close();
 go();
 </script></body></html>
